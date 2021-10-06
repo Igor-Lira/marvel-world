@@ -1,29 +1,38 @@
 <template>
-<div>
-  <h1>This is a stock game to you</h1>
-  <span> {{ marketData.value }} </span>
-</div>
+  <div>
+    <span @click="displayHeroInfo">{{ heroData.name }}</span>
+    <div v-show="isInfoDisplayed.show"> 
+      <img :src="imageURL" width="200" height="200">
+      <div>
+        <span> {{ heroData.description }}  </span>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import { defineComponent, reactive } from "@vue/runtime-core";
-import axios from 'axios'
-
 
 export default defineComponent({
-  setup() {
-    let marketData = reactive ({})
-    const urlMarvel = `https://gateway.marvel.com/v1/public/characters?ts=1&apikey=e49bea4a6ee3e35352198237a08be003&hash=d375cf48c02740a120d568907be5203b`
-    //const url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=demo';
-    axios({
-          method: "get",
-          json: true,
-          headers: {'User-Agent': 'request'},
-          url: urlMarvel,
-      }).then ((results) => marketData.value = results)
-  return {
-    marketData
-  }
+  props: {
+    heroData : {},
+  },
+  setup(props) {
+
+    const isInfoDisplayed = reactive({});
+    isInfoDisplayed.show = false;
+    const imageURL = props.heroData.thumbnail.path + '.' + props.heroData.thumbnail.extension;
+    console.log (imageURL);
+    function displayHeroInfo (){
+      isInfoDisplayed.show = !isInfoDisplayed.show;
+      console.log (props.heroData);
+    }
+
+    return {
+      isInfoDisplayed,
+      imageURL,
+      displayHeroInfo
+    };
   },
 });
 </script>
