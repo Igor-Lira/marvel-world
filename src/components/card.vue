@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <span @click="displayHeroInfo">{{ heroData.name }}</span>
+  <div class = 'card' @click="displayHeroInfo">
+    <span>{{ heroData.name }}</span>
     <div v-show="isInfoDisplayed.show"> 
       <img :src="imageURL" width="200" height="200">
       <div>
@@ -37,5 +37,12 @@ export default defineComponent({
 });
 </script>
 
-<style>
-</style>
+<style scoped>
+.card {
+  width: 400px;
+  box-shadow: 0 4px 8px 0 red;
+  padding: 16px;
+  text-align: center;
+}
+
+</style>>
