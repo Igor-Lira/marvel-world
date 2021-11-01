@@ -6,14 +6,19 @@
       <input
         name="serachHero"
         v-model="heroNameSearch"
-        placeholder="Your favourite Hero!"
+        placeholder="my favorite hero ..."
       />
       <input
         type="button"
         name="btn-search"
         value="search"
-        @click="searchInApi"
+        @click="searchInApi(heroNameSearch)"
       />
+      <div>
+        <ul>
+          <li class="letter" v-for="letter in alphabet" :key="letter"> <u class="link" @click="searchInApi(letter)"> {{ letter }} </u> </li>
+        </ul>
+      </div>
     </div>
     <ul class="container">
       <li
@@ -24,6 +29,9 @@
         <card v-if="allInfoAvailable(heroData)" :heroData="heroData" />
       </li>
     </ul>
+    <div class="left-info">
+
+    </div>
   </div>
 </template>
 
@@ -35,14 +43,16 @@ import md5Generator from "../utils/md5";
 
 export default defineComponent({
   components: {
-    card
+    card,
   },
   computed: {
     allInfoAvailable: function () {
       return (heroData: any) => {
-        return heroData.description &&
+        return (
+          heroData.description &&
           heroData.thumbnail.path !==
-            "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available";
+            "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available"
+        );
       };
     },
   },
@@ -50,14 +60,15 @@ export default defineComponent({
     interface ServerData {
       data: any;
     }
-    const heroNameSearch = ref("hero");
+    const heroNameSearch = ref("");
     let infoHeroes = reactive({}) as any;
-
+    
+    const alphabet = "abcdefghijklmnopqrstuvwxyz".toUpperCase().split("");
     const ts = new Date().getTime();
     const key = md5Generator(ts.toString());
     const route = "characters";
     const urlMarvel = `https://gateway.marvel.com:443/v1/public/${route}?ts=${ts}&apikey=e49bea4a6ee3e35352198237a08be003&hash=${key}`;
-   // console.log(urlMarvel);
+    // console.log(urlMarvel);
     async function getApiData() {
       await axios
         .request<ServerData>({
@@ -73,14 +84,15 @@ export default defineComponent({
       console.log(data);
       //displayInfo = true;
     }
-    async function searchInApi() {
-     // console.log(heroNameSearch.value);
+    async function searchInApi(letter: string) {
+      const search = letter ? letter: heroNameSearch.value;
       await axios
         .request<ServerData>({
           method: "get",
           url: urlMarvel,
           params: {
-            nameStartsWith: heroNameSearch.value,
+            nameStartsWith: search,
+            limit: 99
           },
         })
         .then((apiData) => {
@@ -88,6 +100,7 @@ export default defineComponent({
         });
     }
     return {
+      alphabet,
       infoHeroes,
       showHeroeInfo,
       heroNameSearch,
@@ -101,10 +114,24 @@ export default defineComponent({
 .header {
   text-align: center;
 }
+.letter {
+  display: inline;
+  list-style-type: none;
+}
 .conteiner {
+  box-sizing: border-box;
   list-style-type: none;
 }
 .container-cards {
-  display: inline-block;
+  display: inline;
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+}
+.link {
+    padding: 0 10px;
+    color:blue;
+    text-decoration:underline;
+    cursor:pointer;
 }
 </style>
