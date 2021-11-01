@@ -10,16 +10,16 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, reactive } from "@vue/runtime-core";
 
 export default defineComponent({
   props: {
-    heroData : {},
+    heroData : {} as any,
   },
   setup(props) {
-
-    const isInfoDisplayed = reactive({});
+    console.log ('setup chamado')
+    const isInfoDisplayed = reactive({}) as any;
     isInfoDisplayed.show = false;
     const imageURL = props.heroData.thumbnail.path + '.' + props.heroData.thumbnail.extension;
     console.log (imageURL);
