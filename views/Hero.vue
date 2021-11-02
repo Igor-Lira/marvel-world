@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ heroData.data.name }}</h1>
+        <h1>{{ heroData.data.name }}</h1>
     <div class="hero-info">
       <img class="hero-image" :src="imageURL" width="300" height="350" />
       <div class="hero-description">
@@ -15,7 +15,7 @@
             <h2>Comics</h2>
             <ul>
               <li v-for="comic in comics" :key="comic.resourceURI">
-                <router-link :to="comic.resourceURI"
+                <router-link :to="{path: '/comic', query: {url: comic.resourceURI}}"
                   >{{ comic.name }}
                 </router-link>
               </li>
@@ -48,22 +48,20 @@
   </div>
 </template>
 
-<script>
-import Request, { Endpoints } from "../utils/Request";
+<script lang="ts">
+import Request  from "../utils/Request";
 import { reactive, computed } from "vue";
 
 import { useRoute } from "vue-router";
 
 export default {
   setup() {
-    const heroData = reactive({});
+    const heroData = reactive({}) as any;
     const route = useRoute();
     const userChoice = reactive({ value: "comics" });
-
-    const heroId = route.params.id;
-    const request = new Request(Endpoints.characters, heroId);
-    request.getHeroInfo((apiData) => {
-      heroData.data = apiData;
+    const request = new Request(route.query.url?.toString());
+    request.searchInApi((apiData: any) => {
+      heroData.data = apiData[0];
     });
     const imageURL = computed(
       () =>
@@ -73,7 +71,7 @@ export default {
     const comics = computed(() => heroData.data.comics.items);
     const series = computed(() => heroData.data.series.items);
     const stories = computed(() => heroData.data.stories.items);
-    const updateUserChoice = (choice) => {
+    const updateUserChoice = (choice: string) => {
       userChoice.value = choice;
     }
 
@@ -84,7 +82,6 @@ export default {
       comics,
       series,
       stories,
-      heroId,
       userChoice,
       updateUserChoice
     };

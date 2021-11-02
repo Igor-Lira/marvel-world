@@ -7,7 +7,7 @@
         <span class='text-card'> {{ heroData.description }}  </span>
       </div>
     </div>
-    <span> <router-link :to="{path:'/hero/'+ heroData.id, query: {heroName: heroData.name}}">See more</router-link> </span>
+    <span> <router-link :to="{path:'/hero', query: {url: heroData.resourceURI}}">See more</router-link> </span>
   </div>
 </template>
 

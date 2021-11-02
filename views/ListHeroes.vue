@@ -38,7 +38,7 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from "@vue/runtime-core";
 import card from "../src/components/card.vue";
-import Request, { Endpoints } from "../utils/Request";
+import Request from "../utils/Request";
 
 export default defineComponent({
   components: {
@@ -59,15 +59,15 @@ export default defineComponent({
     const heroNameSearch = ref("");
     let infoHeroes = reactive({}) as any;
     const alphabet = "abcdefghijklmnopqrstuvwxyz".toUpperCase().split("");
-    const request = new Request(Endpoints.characters);
+    const request = new Request();
     request.getApiData((apiData: any) => {
       infoHeroes.data = apiData;
     });
     function searchInApi(letter: string) {
       const search = letter ? letter : heroNameSearch.value;
-      request.searchInApi(search, (apiData: any) => {
+      request.searchInApi((apiData: any) => {
         infoHeroes.data = apiData;
-      });
+      }, search);
     }
     return {
       alphabet,
