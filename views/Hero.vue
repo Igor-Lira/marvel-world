@@ -1,13 +1,31 @@
 <template>
-  <div>
-        <h1>{{ heroData.data.name }}</h1>
+  <div v-if="heroData.data">
+    <h1>{{ name }}</h1>
     <div class="hero-info">
       <img class="hero-image" :src="imageURL" width="300" height="350" />
       <div class="hero-description">
-        <p> {{ description }} </p>
-        <button type="button" v-show="comics.length" @click="updateUserChoice('comics')"> Comics </button>
-        <button type="button" v-show="series.length" @click="updateUserChoice('series')"> Series </button>
-        <button type="button" v-show="stories.length" @click="updateUserChoice('stories')"> Stories </button>
+        <p>{{ description }}</p>
+        <button
+          type="button"
+          v-show="comics.length"
+          @click="updateUserChoice('comics')"
+        >
+          Comics
+        </button>
+        <button
+          type="button"
+          v-show="series.length"
+          @click="updateUserChoice('series')"
+        >
+          Series
+        </button>
+        <button
+          type="button"
+          v-show="stories.length"
+          @click="updateUserChoice('stories')"
+        >
+          Stories
+        </button>
       </div>
       <div class="hero-general-content">
         <div v-if="userChoice.value == 'comics'">
@@ -15,7 +33,8 @@
             <h2>Comics</h2>
             <ul>
               <li v-for="comic in comics" :key="comic.resourceURI">
-                <router-link :to="{path: '/comic', query: {url: comic.resourceURI}}"
+                <router-link
+                  :to="{ path: '/comic', query: { url: comic.resourceURI } }"
                   >{{ comic.name }}
                 </router-link>
               </li>
@@ -27,7 +46,7 @@
             <h2>Series</h2>
             <ul>
               <li v-for="serie in series" :key="serie.resourceURI">
-                <router-link :to="serie.resourceURI">{{ serie.name }} </router-link>
+                {{ serie.name }}
               </li>
             </ul>
           </div>
@@ -37,7 +56,7 @@
             <h2>Stories</h2>
             <ul>
               <li v-for="story in stories" :key="story.resourceURI">
-                <router-link :to="story.resourceURI">{{ story.name }} </router-link>
+                {{ story.name }}
               </li>
             </ul>
           </div>
@@ -49,7 +68,7 @@
 </template>
 
 <script lang="ts">
-import Request  from "../utils/Request";
+import Request from "../utils/Request";
 import { reactive, computed } from "vue";
 
 import { useRoute } from "vue-router";
@@ -67,23 +86,25 @@ export default {
       () =>
         heroData.data.thumbnail.path + "." + heroData.data.thumbnail.extension
     );
+    const name = computed(() => heroData.data.name);
     const description = computed(() => heroData.data.description);
     const comics = computed(() => heroData.data.comics.items);
     const series = computed(() => heroData.data.series.items);
     const stories = computed(() => heroData.data.stories.items);
     const updateUserChoice = (choice: string) => {
       userChoice.value = choice;
-    }
+    };
 
     return {
       heroData,
+      name,
       description,
       imageURL,
       comics,
       series,
       stories,
       userChoice,
-      updateUserChoice
+      updateUserChoice,
     };
   },
 };
@@ -101,7 +122,7 @@ export default {
   margin-top: 50px;
   overflow: hidden;
   width: 30%;
-  height: 200px;
+  height: 400px;
   padding: 10px;
 }
 .hero-general-content {
@@ -112,8 +133,5 @@ export default {
   width: 30%;
   height: 300px;
   padding: 30px;
-}
-.general-content {
-  padding: 5px 5px;
 }
 </style>

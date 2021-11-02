@@ -6,7 +6,7 @@ import Comic from '../views/Comic.vue'
 const routes = [
     { path: '/', component: ListHeroes },
     { path: '/hero', component: Hero },
-    { path: '/comic/:id', component: Comic}
+    { path: '/comic', component: Comic}
 ];
 
 const router = createRouter({
