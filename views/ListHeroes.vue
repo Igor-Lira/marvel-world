@@ -1,9 +1,8 @@
 <template>
   <div v-if="infoHeroes.data">
     <router-view></router-view>
-    <div class="header">
-      <h1>Marvel World</h1>
-      <label for="searchHero"> Search for a Hero! </label>
+    <div class="centered">
+      <label class="searchSlot" for="searchHero"> Search for a Hero! </label>
       <input
         name="serachHero"
         v-model="heroNameSearch"
@@ -17,7 +16,9 @@
       />
       <div>
         <ul>
-          <li class="letter" v-for="letter in alphabet" :key="letter"> <u class="link" @click="searchInApi(letter)"> {{ letter }} </u> </li>
+          <li class="letter" v-for="letter in alphabet" :key="letter">
+            <u class="link" @click="searchInApi(letter)"> {{ letter }} </u>
+          </li>
         </ul>
       </div>
     </div>
@@ -30,16 +31,14 @@
         <card v-if="allInfoAvailable(heroData)" :heroData="heroData" />
       </li>
     </ul>
-    <div class="left-info">
-
-    </div>
+    <div class="left-info"></div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from "@vue/runtime-core";
 import card from "../src/components/card.vue";
-import Request from '../utils/Request'
+import Request, { Endpoints } from "../utils/Request";
 
 export default defineComponent({
   components: {
@@ -59,17 +58,16 @@ export default defineComponent({
   setup() {
     const heroNameSearch = ref("");
     let infoHeroes = reactive({}) as any;
-    
     const alphabet = "abcdefghijklmnopqrstuvwxyz".toUpperCase().split("");
-    const request = new Request('characters');
+    const request = new Request(Endpoints.characters);
     request.getApiData((apiData: any) => {
-       infoHeroes.data = apiData;
-    })
-    function searchInApi(letter: string){
-      const search = letter ? letter: heroNameSearch.value;
+      infoHeroes.data = apiData;
+    });
+    function searchInApi(letter: string) {
+      const search = letter ? letter : heroNameSearch.value;
       request.searchInApi(search, (apiData: any) => {
-          infoHeroes.data = apiData;
-      })
+        infoHeroes.data = apiData;
+      });
     }
     return {
       alphabet,
@@ -82,7 +80,8 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.header {
+
+.centered {
   text-align: center;
 }
 .letter {
@@ -100,9 +99,14 @@ export default defineComponent({
   padding: 0 10px;
 }
 .link {
-    padding: 0 10px;
-    color:blue;
-    text-decoration:underline;
-    cursor:pointer;
+  padding: 5px 10px;
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.searchSlot {
+  font-size: 20px;
+  font-weight: bold;
+  color: #1abc9c;
 }
 </style>

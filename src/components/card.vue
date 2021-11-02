@@ -7,6 +7,7 @@
         <span class='text-card'> {{ heroData.description }}  </span>
       </div>
     </div>
+    <span> <router-link :to="{path:'/hero/'+ heroData.id, query: {heroName: heroData.name}}">See more</router-link> </span>
   </div>
 </template>
 
@@ -34,7 +35,7 @@ export default defineComponent({
 <style scoped>
 .card {
   width:300px; height:400px;
-  box-shadow: 0 4px 8px 0 red;
+  box-shadow: 0 4px 8px 0 #1abc9c;
   padding: 16px;
   text-align: center;
 }
