@@ -13,7 +13,8 @@
     "express": "^4.17.1",
     "md5": "^2.3.0",
     "vue": "^3.0.0",
-    "vue-class-component": "^8.0.0-0"
+    "vue-class-component": "^8.0.0-0",
+    "vue-router": "^4.0.12"
   },
   "devDependencies": {
     "@types/md5": "^2.3.1",
