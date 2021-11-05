@@ -1,8 +1,8 @@
 <template>
   <div class="header">
-    <h1>Marvel World</h1>
+    <h3>Marvel World</h3>
+     <router-link class="home" :to="'/'"> Home </router-link>
   </div>
-  <router-link class="home" :to="'/'"> Home </router-link>
 </template>
 
 <script>
@@ -13,12 +13,12 @@ export default {};
 .header {
   padding: 2px;
   text-align: center;
-  background: #1abc9c;
+  background: #ff4d4d;
   color: white;
   font-size: 25px;
 }
 .home {
-  text-align: "left";
+  color: white;
   font-size: 20px;
 }
 

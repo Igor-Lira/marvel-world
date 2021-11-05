@@ -16,21 +16,21 @@
       />
       <div>
         <ul>
-          <li class="letter" v-for="letter in alphabet" :key="letter">
+          <li class="alphabet" v-for="letter in alphabet" :key="letter">
             <u class="link" @click="searchInApi(letter)"> {{ letter }} </u>
           </li>
         </ul>
       </div>
     </div>
-    <ul class="container">
-      <li
+    <div class="container">
+      <div
         v-for="heroData in infoHeroes.data"
         :key="heroData.id"
         class="container-cards"
       >
         <card v-if="allInfoAvailable(heroData)" :heroData="heroData" />
-      </li>
-    </ul>
+      </div>
+    </div>
     <div class="left-info"></div>
   </div>
 </template>
@@ -84,22 +84,21 @@ export default defineComponent({
 .centered {
   text-align: center;
 }
-.letter {
+.alphabet {
   display: inline;
   list-style-type: none;
 }
-.conteiner {
-  box-sizing: border-box;
-  list-style-type: none;
+.container {
+  display: flex;
+  flex-wrap:wrap;
 }
-.container-cards {
-  display: inline;
-  float: left;
-  width: 25%;
-  padding: 0 10px;
+
+.container :first-child {
+    align-self: center;
 }
+
 .link {
-  padding: 5px 10px;
+  padding: 0px 5px;
   color: blue;
   text-decoration: underline;
   cursor: pointer;
