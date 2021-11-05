@@ -14,13 +14,7 @@
         value="search"
         @click="searchInApi(heroNameSearch)"
       />
-      <div>
-        <ul>
-          <li class="alphabet" v-for="letter in alphabet" :key="letter">
-            <u class="link" @click="searchInApi(letter)"> {{ letter }} </u>
-          </li>
-        </ul>
-      </div>
+      <Alphabet @search="searchInApi"/>
     </div>
     <div class="container">
       <div
@@ -38,11 +32,13 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from "@vue/runtime-core";
 import card from "../src/components/card.vue";
+import Alphabet from "../src/components/Alphabet.vue"
 import Request from "../utils/Request";
 
 export default defineComponent({
   components: {
     card,
+    Alphabet
   },
   computed: {
     allInfoAvailable: function () {
