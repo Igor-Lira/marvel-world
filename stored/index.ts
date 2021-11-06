@@ -7,6 +7,7 @@ export default createStore({
   },
   mutations: {
     searchInApi (state: any, search: string) {
+      console.log ('comitado', search)  
       state.search = search;
     }
   }

@@ -34,7 +34,7 @@ export default defineComponent({
   border: none;
   margin-top: 8px;
   margin-right: 16px;
-  font-size: 17px;
+  font-size: 12px;
 }
 
 /* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */

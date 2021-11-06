@@ -1,21 +1,18 @@
 <template>
-  <div>
-    <ul>
-      <li class="alphabet" v-for="letter in alphabet" :key="letter">
-        <u class="link" @click="requestAPI(letter)"> {{ letter }} </u>
-      </li>
-    </ul>
+  <div v-for="letter in alphabet" :key="letter">
+    <a @click.prevent="requestAPI(letter)">{{ letter }}</a>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { useStore } from "vuex";
 export default {
   emits: ["search"],
-  setup(props, context) {
+  setup() {
     const alphabet = "abcdefghijklmnopqrstuvwxyz".toUpperCase().split("");
-    function requestAPI(letter) {
-      console.log ('filho', letter);
-      context.emit("search", letter);
+    const store = useStore();
+    function requestAPI(letter: string) {
+      store.commit("searchInApi", letter);
     }
     return {
       alphabet,
@@ -26,14 +23,4 @@ export default {
 </script>
 
 <style scoped>
-.alphabet {
-  display: inline;
-  list-style-type: none;
-}
-.link {
-  padding: 0px 5px;
-  color: blue;
-  text-decoration: underline;
-  cursor: pointer;
-}
 </style>

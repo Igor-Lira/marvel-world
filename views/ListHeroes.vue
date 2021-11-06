@@ -1,41 +1,34 @@
 <template>
   <div v-if="infoHeroes.data">
     <router-view></router-view>
-    <Alphabet @search="searchInApi" />
-    <div class="container">
+    <div class="container" v-if="HeroesWithAllInfoAvailable.length">
       <div
-        v-for="heroData in infoHeroes.data"
+        v-for="heroData in HeroesWithAllInfoAvailable"
         :key="heroData.id"
         class="container-cards"
       >
-        <card v-if="allInfoAvailable(heroData)" :heroData="heroData" />
+        <Card :heroData="heroData" />
       </div>
     </div>
+    <div v-else>No results found</div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, watchEffect } from "@vue/runtime-core";
-import card from "../src/components/card.vue";
-import Alphabet from "../src/components/Alphabet.vue";
+import {
+  computed,
+  defineComponent,
+  reactive,
+  ref,
+  watchEffect,
+} from "@vue/runtime-core";
+import Card from "../src/components/Card.vue";
 import Request from "../utils/Request";
 import { useStore } from "vuex";
 
 export default defineComponent({
   components: {
-    card,
-    Alphabet,
-  },
-  computed: {
-    allInfoAvailable: function () {
-      return (heroData: any) => {
-        return (
-          heroData.description &&
-          heroData.thumbnail.path !==
-            "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available"
-        );
-      };
-    },
+    Card,
   },
   setup() {
     const store = useStore();
@@ -44,10 +37,16 @@ export default defineComponent({
     let infoHeroes = reactive({}) as any;
 
     const request = new Request();
-    request.getApiData((apiData: any) => {
-      infoHeroes.data = apiData;
-    });
 
+    const HeroesWithAllInfoAvailable = computed(() => {
+      return infoHeroes.data.filter((heroData: any) => {
+        return (
+          heroData.description &&
+          heroData.thumbnail.path !==
+            "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available"
+        );
+      });
+    });
     watchEffect(() => {
       searchInApi(store.state.search);
     });
@@ -60,6 +59,7 @@ export default defineComponent({
     }
     return {
       infoHeroes,
+      HeroesWithAllInfoAvailable,
       heroNameSearch,
       searchInApi,
     };
@@ -71,10 +71,7 @@ export default defineComponent({
 * {
   text-align: center;
 }
-.alphabet {
-  display: inline;
-  list-style-type: none;
-}
+
 .container {
   display: flex;
   flex-wrap: wrap;
@@ -84,15 +81,4 @@ export default defineComponent({
   align-self: center;
 }
 
-.link {
-  padding: 0px 5px;
-  color: blue;
-  text-decoration: underline;
-  cursor: pointer;
-}
-.searchSlot {
-  font-size: 20px;
-  font-weight: bold;
-  color: #1abc9c;
-}
 </style>

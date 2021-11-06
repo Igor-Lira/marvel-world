@@ -129,7 +129,7 @@ export default {
   white-space: normal;
   display: inline-block;
   vertical-align: top;
-  overflow-y: scroll;
+  overflow-y: auto;
   width: 30%;
   height: 300px;
   padding: 30px;

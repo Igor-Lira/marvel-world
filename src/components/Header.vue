@@ -2,31 +2,41 @@
   <div class="header">
     <h3>Marvel World</h3>
     <div class="topnav">
-      <router-link class="home" :to="'/'"> Home </router-link>
-      <SearchBar/>
+      <router-link class="home" :to="'/'"  v-if="router.path !=='/'"> Home </router-link>
+      <SearchBar v-if="router.path==='/'"/>
+      <Alphabet v-if="router.path==='/'"/>
     </div>
   </div>
 </template>
 <script>
 import { defineComponent } from "@vue/runtime-core";
-import SearchBar from './SearchBar.vue'
+import SearchBar from "./SearchBar.vue";
+import Alphabet from "./Alphabet.vue";
+import { useRoute } from "vue-router";
 
 export default defineComponent({
   components: {
-    SearchBar
-  }
-})
+    SearchBar,
+    Alphabet,
+  },
+  setup() {
+    const router = useRoute();
+    return {
+      router
+    };
+  },
+});
 </script>
 
-<style scoped>
+<style>
 .header {
   padding: 2px;
   text-align: center;
-  background: #B22222;
+  background: #b22222;
   color: white;
   font-size: 25px;
 }
-  /** Search Bar CSS: https://www.w3schools.com/howto/howto_css_searchbar.asp */
+/** Search Bar CSS: https://www.w3schools.com/howto/howto_css_searchbar.asp */
 
 /* Add a black background color to the top navigation bar */
 .topnav {
@@ -53,8 +63,7 @@ export default defineComponent({
 
 /* Style the "active" element to highlight the current page */
 .topnav a.active {
-  background-color: #2196F3;
+  background-color: #2196f3;
   color: white;
 }
-
 </style>
