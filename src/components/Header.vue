@@ -1,22 +1,60 @@
 <template>
   <div class="header">
     <h3>Marvel World</h3>
-    <div>
-    <router-link class="home" :to="'/'"> Home </router-link>
+    <div class="topnav">
+      <router-link class="home" :to="'/'"> Home </router-link>
+      <SearchBar/>
     </div>
   </div>
 </template>
+<script>
+import { defineComponent } from "@vue/runtime-core";
+import SearchBar from './SearchBar.vue'
+
+export default defineComponent({
+  components: {
+    SearchBar
+  }
+})
+</script>
 
 <style scoped>
 .header {
   padding: 2px;
   text-align: center;
-  background: #dc143c;
+  background: #B22222;
   color: white;
   font-size: 25px;
 }
-.home {
-  color: white;
-  font-size: 20px;
+  /** Search Bar CSS: https://www.w3schools.com/howto/howto_css_searchbar.asp */
+
+/* Add a black background color to the top navigation bar */
+.topnav {
+  overflow: hidden;
+  background-color: #dc143c;
 }
-</style>>
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Style the "active" element to highlight the current page */
+.topnav a.active {
+  background-color: #2196F3;
+  color: white;
+}
+
+</style>

@@ -1,21 +1,7 @@
 <template>
   <div v-if="infoHeroes.data">
     <router-view></router-view>
-    <div class="centered">
-      <label class="searchSlot" for="searchHero"> Search for a Hero! </label>
-      <input
-        name="serachHero"
-        v-model="heroNameSearch"
-        placeholder="my favorite hero ..."
-      />
-      <input
-        type="button"
-        name="btn-search"
-        value="search"
-        @click="searchInApi(heroNameSearch)"
-      />
-      <Alphabet @search="searchInApi"/>
-    </div>
+    <Alphabet @search="searchInApi" />
     <div class="container">
       <div
         v-for="heroData in infoHeroes.data"
@@ -25,20 +11,20 @@
         <card v-if="allInfoAvailable(heroData)" :heroData="heroData" />
       </div>
     </div>
-    <div class="left-info"></div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from "@vue/runtime-core";
+import { defineComponent, reactive, ref, watchEffect } from "@vue/runtime-core";
 import card from "../src/components/card.vue";
-import Alphabet from "../src/components/Alphabet.vue"
+import Alphabet from "../src/components/Alphabet.vue";
 import Request from "../utils/Request";
+import { useStore } from "vuex";
 
 export default defineComponent({
   components: {
     card,
-    Alphabet
+    Alphabet,
   },
   computed: {
     allInfoAvailable: function () {
@@ -52,13 +38,20 @@ export default defineComponent({
     },
   },
   setup() {
+    const store = useStore();
+
     const heroNameSearch = ref("");
     let infoHeroes = reactive({}) as any;
-    const alphabet = "abcdefghijklmnopqrstuvwxyz".toUpperCase().split("");
+
     const request = new Request();
     request.getApiData((apiData: any) => {
       infoHeroes.data = apiData;
     });
+
+    watchEffect(() => {
+      searchInApi(store.state.search);
+    });
+
     function searchInApi(letter: string) {
       const search = letter ? letter : heroNameSearch.value;
       request.searchInApi((apiData: any) => {
@@ -66,7 +59,6 @@ export default defineComponent({
       }, search);
     }
     return {
-      alphabet,
       infoHeroes,
       heroNameSearch,
       searchInApi,
@@ -76,8 +68,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
-.centered {
+* {
   text-align: center;
 }
 .alphabet {
@@ -86,11 +77,11 @@ export default defineComponent({
 }
 .container {
   display: flex;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
 }
 
 .container :first-child {
-    align-self: center;
+  align-self: center;
 }
 
 .link {
