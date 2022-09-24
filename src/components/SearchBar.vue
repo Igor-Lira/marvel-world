@@ -1,11 +1,6 @@
 <template>
-  <input
-    type="text"
-    name="serachHero"
-    v-model="heroNameSearch"
-    placeholder="Search a hero.."
-    @keyup.enter="searchInApi(heroNameSearch)"
-  />
+  <input class="search-input" type="text" name="serachHero" v-model="heroNameSearch" placeholder="Search a hero.."
+    @keyup.enter="searchInApi(heroNameSearch)" />
 </template>
 
 <script lang="ts">
@@ -19,37 +14,17 @@ export default defineComponent({
       store.commit("searchInApi", search);
     }
     return {
-        searchInApi
+      searchInApi
     }
   },
 });
 </script>
 
 <style scoped>
-/** Search Bar CSS: https://www.w3schools.com/howto/howto_css_searchbar.asp */
-/* Style the search box inside the navigation bar */
-.topnav input[type="text"] {
-  float: right;
-  padding: 6px;
-  border: none;
-  margin-top: 8px;
-  margin-right: 16px;
-  font-size: 12px;
-}
-
-/* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
-@media screen and (max-width: 600px) {
-  .topnav a,
-  .topnav input[type="text"] {
-    float: none;
-    display: block;
-    text-align: left;
+@media(max-width: 400px) {
+  .search-input {
     width: 100%;
-    margin: 0;
-    padding: 14px;
-  }
-  .topnav input[type="text"] {
-    border: 1px solid #ccc;
+    border: none;
   }
 }
 </style>
