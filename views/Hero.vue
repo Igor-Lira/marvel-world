@@ -1,17 +1,29 @@
 <template>
-  <div v-if="heroData.data" class="hero-container">
-    <div class="hero-title">{{ name }}</div>
+  <div v-if="heroData.data">
+    <h1>{{ name }}</h1>
     <div class="hero-info">
       <img class="hero-image" :src="imageURL" width="300" height="350" />
       <div class="hero-description">
         <p>{{ description }}</p>
-        <button type="button" v-show="comics.length" @click="updateUserChoice('comics')">
+        <button
+          type="button"
+          v-show="comics.length"
+          @click="updateUserChoice('comics')"
+        >
           Comics
         </button>
-        <button type="button" v-show="series.length" @click="updateUserChoice('series')">
+        <button
+          type="button"
+          v-show="series.length"
+          @click="updateUserChoice('series')"
+        >
           Series
         </button>
-        <button type="button" v-show="stories.length" @click="updateUserChoice('stories')">
+        <button
+          type="button"
+          v-show="stories.length"
+          @click="updateUserChoice('stories')"
+        >
           Stories
         </button>
       </div>
@@ -21,7 +33,9 @@
             <h2>Comics</h2>
             <ul>
               <li v-for="comic in comics" :key="comic.resourceURI">
-                <router-link :to="{ path: '/comic', query: { url: comic.resourceURI } }">{{ comic.name }}
+                <router-link
+                  :to="{ path: '/comic', query: { url: comic.resourceURI } }"
+                  >{{ comic.name }}
                 </router-link>
               </li>
             </ul>
@@ -97,55 +111,27 @@ export default {
 </script>
 
 <style scoped>
-@media(max-width: 400px) {
-
-  .hero-container {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-  }
-
-  .hero-image {
-    width: 90%;
-    margin: 10px;
-  }
-
-  .hero-description {
-    padding: 10px
-  }
-
-  .hero-general-content {
-    padding: 10px
-  }
+.hero-image {
+  display: inline-block;
+  padding: 10px;
 }
-
 .hero-description {
-  /* width: 100%; */
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: inline-block;
+  vertical-align: top;
+  white-space: normal;
+  margin-top: 50px;
+  overflow: hidden;
+  width: 30%;
+  height: 400px;
+  padding: 10px;
 }
-
-@media(min-width: 1000px) {
-  .hero-general-content {
-    white-space: normal;
-    display: inline-block;
-    vertical-align: top;
-    overflow-y: auto;
-    width: 30%;
-    height: 300px;
-    padding: 30px;
-  }
-
-  .hero-description {
-    display: inline-block;
-    vertical-align: top;
-    white-space: normal;
-    margin-top: 50px;
-    overflow: hidden;
-    width: 30%;
-    height: 400px;
-    padding: 10px;
-  }
+.hero-general-content {
+  white-space: normal;
+  display: inline-block;
+  vertical-align: top;
+  overflow-y: auto;
+  width: 30%;
+  height: 300px;
+  padding: 30px;
 }
 </style>
