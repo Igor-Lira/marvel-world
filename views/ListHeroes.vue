@@ -3,7 +3,11 @@
     <div class="line"></div>
     <router-view></router-view>
     <div class="container" v-if="HeroesWithAllInfoAvailable.length">
-      <div v-for="heroData in HeroesWithAllInfoAvailable" :key="heroData.id" class="container-cards">
+      <div
+        v-for="heroData in HeroesWithAllInfoAvailable"
+        :key="heroData.id"
+        class="container-cards"
+      >
         <Card :heroData="heroData" />
       </div>
     </div>
@@ -40,7 +44,7 @@ export default defineComponent({
         return (
           heroData.description &&
           heroData.thumbnail.path !==
-          "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available"
+            "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available"
         );
       });
     });
@@ -75,10 +79,10 @@ body {
 }
 
 .container {
-  display: grid;
-  grid-template-rows: auto;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  grid-gap: 10px;
-  justify-items: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 </style>

@@ -1,6 +1,7 @@
 module.exports = {
-  publicPath: '/Marvel-World/',
+  publicPath:
+    process.env.NODE_ENV === "development" ? "/" : "/marvel-universe/",
   devServer: {
     disableHostCheck: true,
-  }
-}
+  },
+};

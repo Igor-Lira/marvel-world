@@ -1,39 +1,42 @@
 <template>
   <div class="card-container-wrapper">
-    <div class="card-container" :style="backgroundCss">
+    <div class="card-container" @click="goToHeroPage">
+      <img :src="imageURL" alt="" />
       <div class="card-title">{{ heroData.name }}</div>
-      <div class="card-content"> {{ description}} </div>
-      <span class="card-button">
-        <router-link :to="{ path: '/hero', query: { url: heroData.resourceURI } }">See more</router-link>
-      </span>
+      <!-- <div class="card-content">{{ description }}</div> -->
+      <!-- <span class="card-button">
+        <router-link
+          :to="{ path: '/hero', }"
+          >See more</router-link
+        >
+      </span> -->
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "@vue/runtime-core";
-import { computed } from 'vue';
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   props: {
     heroData: {} as any,
   },
   setup(props) {
-    const imageURL = props.heroData.thumbnail.path + "." + props.heroData.thumbnail.extension;
-    const description = computed(() => {
-      if (props.heroData.description.length > 180) {
-        return `${props.heroData.description.substring(0, 180)}...`
-      }
-      return props.heroData.description;
-    })
+    const router = useRouter();
+    const imageURL =
+      props.heroData.thumbnail.path + "." + props.heroData.thumbnail.extension;
 
-    const backgroundCss = {
-      background: `200px linear-gradient(to bottom, rgba(255,255,255,0) 20%, rgba(57,0,3,1)), url(${imageURL})`
+    function goToHeroPage() {
+      router.push({
+        path: "/hero",
+        query: { url: props.heroData.resourceURI },
+      });
     }
 
     return {
-      backgroundCss,
-      description,
+      imageURL,
+      goToHeroPage,
     };
   },
 });
@@ -41,28 +44,45 @@ export default defineComponent({
 
 <style scoped>
 .card-container {
+  position: relative;
   margin-top: 10px;
-  width: 300px;
+  margin-left: 10px;
+  width: 150px;
   height: 400px;
-  overflow-y: auto;
-  background: #FAFAFA;
-  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2), 0px 3px 4px rgba(0, 0, 0, 0.12), 0px 2px 4px rgba(0, 0, 0, 0.14);
+  background: #151515;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2), 0px 3px 4px rgba(0, 0, 0, 0.12),
+    0px 2px 4px rgba(0, 0, 0, 0.14);
   border-radius: 4px;
-  filter: drop-shadow(0px 4px 84px rgba(0, 0, 0, 0.15));
+}
+
+.card-container > img {
+  height: 50%;
+  width: 100%;
+}
+
+.card-container::after {
+  height: 4px;
+  content: "";
+  background-color: #e62429;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 50%;
 }
 
 .card-container-wrapper:hover > .card-container {
-  opacity: 70%;
+  opacity: 90%;
+  background-color: #390003;
+  transition: opacity 300ms;
 }
 
 .card-title {
-  padding-top: 12px;
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 28px;
-  line-height: 33px;
-  color: #390003;
+  margin-top: 10%;
+  font: 400 16px/1.1 RobotoCondensed Bold, Trebuchet MS, Helvetica, Arial,
+    sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: white;
 }
 
 .card-content {
@@ -79,4 +99,4 @@ export default defineComponent({
   transform: translate(-50%, -50%);
   bottom: 0;
 }
-</style>>
+</style>
