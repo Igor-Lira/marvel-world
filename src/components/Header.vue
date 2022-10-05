@@ -2,9 +2,10 @@
   <div class="header">
     <h3>Marvel World</h3>
     <div class="topnav">
-      <router-link class="home" :to="'/'" v-if="router.path !=='/'"> Home </router-link>
-      <SearchBar v-if="router.path==='/'" />
-      <!-- <Alphabet v-if="router.path==='/'"/> -->
+      <router-link class="home" :to="'/'" v-if="router.path !== '/'">
+        Home
+      </router-link>
+      <SearchBar v-if="router.path === '/'" />
     </div>
   </div>
 </template>
@@ -20,7 +21,7 @@ export default defineComponent({
   setup() {
     const router = useRoute();
     return {
-      router
+      router,
     };
   },
 });
