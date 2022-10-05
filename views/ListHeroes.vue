@@ -73,11 +73,6 @@ export default defineComponent({
 body {
   text-align: center;
 }
-
-.hero-list-container {
-  /* background: white; */
-}
-
 .container {
   width: 100%;
   display: flex;

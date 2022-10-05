@@ -62,7 +62,7 @@ export default defineComponent({
 }
 .routes-links {
   position: relative;
-  margin-left: 35px;
+  margin-left: 5%;
 }
 
 .router-link-active::before {

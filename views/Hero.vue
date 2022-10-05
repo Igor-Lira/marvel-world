@@ -1,38 +1,49 @@
 <template>
   <div v-if="heroData.data">
-    <h1>{{ name }}</h1>
+    <div class="hero-name">{{ name }}</div>
     <div class="hero-info">
-      <img class="hero-image" :src="imageURL" width="300" height="350" />
+      <div class="hero-image">
+        <img :src="imageURL" />
+        <div class="buttons">
+          <button
+            :class="[userChoice.value == 'comics' ? 'active' : '']"
+            type="button"
+            v-show="comics.length"
+            @click="updateUserChoice('comics')"
+          >
+            Comics
+          </button>
+          <button
+            :class="[userChoice.value == 'series' ? 'active' : '']"
+            type="button"
+            v-show="series.length"
+            @click="updateUserChoice('series')"
+          >
+            Series
+          </button>
+          <button
+            :class="[userChoice.value == 'stories' ? 'active' : '']"
+            type="button"
+            v-show="stories.length"
+            @click="updateUserChoice('stories')"
+          >
+            Stories
+          </button>
+        </div>
+      </div>
       <div class="hero-description">
         <p>{{ description }}</p>
-        <button
-          type="button"
-          v-show="comics.length"
-          @click="updateUserChoice('comics')"
-        >
-          Comics
-        </button>
-        <button
-          type="button"
-          v-show="series.length"
-          @click="updateUserChoice('series')"
-        >
-          Series
-        </button>
-        <button
-          type="button"
-          v-show="stories.length"
-          @click="updateUserChoice('stories')"
-        >
-          Stories
-        </button>
       </div>
       <div class="hero-general-content">
         <div v-if="userChoice.value == 'comics'">
           <div v-show="comics.length">
-            <h2>Comics</h2>
+            <div class="comic-title">Comics</div>
             <ul>
-              <li v-for="comic in comics" :key="comic.resourceURI">
+              <li
+                class="comic-item"
+                v-for="comic in comics"
+                :key="comic.resourceURI"
+              >
                 <router-link
                   :to="{ path: '/comic', query: { url: comic.resourceURI } }"
                   >{{ comic.name }}
@@ -43,9 +54,13 @@
         </div>
         <div v-else-if="userChoice.value == 'series'">
           <div v-show="series.length">
-            <h2>Series</h2>
+            <div class="serie-title">Series</div>
             <ul>
-              <li v-for="serie in series" :key="serie.resourceURI">
+              <li
+                class="serie-item"
+                v-for="serie in series"
+                :key="serie.resourceURI"
+              >
                 {{ serie.name }}
               </li>
             </ul>
@@ -53,9 +68,13 @@
         </div>
         <div v-else-if="userChoice.value == 'stories'">
           <div v-show="stories.length">
-            <h2>Stories</h2>
+            <div class="story-title">Stories</div>
             <ul>
-              <li v-for="story in stories" :key="story.resourceURI">
+              <li
+                class="story-item"
+                v-for="story in stories"
+                :key="story.resourceURI"
+              >
                 {{ story.name }}
               </li>
             </ul>
@@ -111,27 +130,119 @@ export default {
 </script>
 
 <style scoped>
+* {
+  color: white;
+}
+
+@media screen and (max-width: 600px) {
+  .hero-image > img {
+    width: 55%;
+  }
+  .hero-image {
+    width: 100%;
+  }
+  .hero-description {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 600px) {
+  .hero-image > img {
+    width: 300px;
+    height: 300px;
+  }
+  .hero-image {
+    width: fit-content;
+  }
+  .hero-description {
+    width: 50%;
+  }
+}
+
+.hero-info {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero-image > img {
+  /* display: inline; */
+  margin: 15px;
+  border-radius: 8px;
+}
 .hero-image {
-  display: inline-block;
-  padding: 10px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
+
+.hero-name,
+.comic-title,
+.serie-title,
+.story-title {
+  margin-top: 10px;
+  text-align: center;
+  font: 400 32px/1.1 RobotoCondensed Bold, Trebuchet MS, Helvetica, Arial,
+    sans-serif;
+}
+.hero-description,
+.comic-item,
+.serie-item,
+.story-item {
+  text-align: center;
+  font: 400 16px/1.5 Open Sans, Trebuchet MS, Helvetica, Arial, sans-serif;
+}
+
+.comic-item:hover {
+  opacity: 80%;
+  background-color: #e62429;
+}
+
 .hero-description {
-  display: inline-block;
-  vertical-align: top;
-  white-space: normal;
-  margin-top: 50px;
-  overflow: hidden;
-  width: 30%;
-  height: 400px;
-  padding: 10px;
+  max-width: 600px;
+  text-align: center;
+  display: flex;
+  align-items: center;
 }
+
 .hero-general-content {
-  white-space: normal;
-  display: inline-block;
-  vertical-align: top;
-  overflow-y: auto;
-  width: 30%;
-  height: 300px;
-  padding: 30px;
+  width: 100%;
+}
+
+.buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.buttons > button {
+  margin-left: 5px;
+}
+
+button {
+  background: #e62429;
+  height: 40px;
+  font: 400 16px/1.5 Open Sans, Trebuchet MS, Helvetica, Arial, sans-serif;
+  border-radius: 4px;
+}
+
+button:hover {
+  opacity: 70%;
+}
+
+button.active {
+  background-color: #390003;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+a,
+a:visited,
+a:hover,
+a:active {
+  color: inherit;
+  text-decoration: inherit;
 }
 </style>
