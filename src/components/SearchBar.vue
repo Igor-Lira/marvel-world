@@ -1,10 +1,19 @@
 <template>
-  <input class="search-input" type="text" name="serachHero" v-model="heroNameSearch" placeholder="Search a hero.."
-    @keyup.enter="searchInApi(heroNameSearch)" />
+  <div class="wrapper">
+    <img class="search-icon" src="../../public/search.png" />
+    <input
+      class="search-input"
+      type="text"
+      name="serachHero"
+      v-model="heroNameSearch"
+      placeholder="Search a hero.."
+      @keyup.enter="searchInApi(heroNameSearch)"
+    />
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@vue/runtime-core";
+import { defineComponent, ref } from "@vue/runtime-core";
 import { useStore } from "vuex";
 
 export default defineComponent({
@@ -14,17 +23,41 @@ export default defineComponent({
       store.commit("searchInApi", search);
     }
     return {
-      searchInApi
-    }
+      searchInApi,
+      heroNameSearch: ref(""),
+    };
   },
 });
 </script>
 
 <style scoped>
-@media(max-width: 400px) {
-  .search-input {
-    width: 100%;
-    border: none;
-  }
+.search-input {
+  box-sizing: border-box;
+  width: 250px;
+  height: 30px;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background-color: transparent;
+  color: white;
+  padding-left: 10px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 28px;
+  color: rgba(255, 255, 255, 0.485);
+}
+.wrapper {
+  position: relative;
+}
+.search-icon {
+  width: 10%;
+  position: absolute;
+  bottom: 2px;
+  left: 85%;
+}
+textarea:focus,
+input:focus {
+  outline: none;
 }
 </style>

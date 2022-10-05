@@ -1,28 +1,40 @@
 <template>
   <div class="header">
-    <div class="img-wrapper">
+    <router-link to="/" class="img-wrapper">
       <img src="../../public/marvel-logo.png" alt="" />
-    </div>
+    </router-link>
     <div class="routes">
       <router-link class="w-1 routes-links" :to="'/'"> Home </router-link>
-      <router-link class="w-2 routes-links" :to="'/hero'">
+      <div
+        class="w-2 routes-links"
+        :class="[router.path === '/hero' ? 'router-link-active' : '']"
+      >
         Character
-      </router-link>
-      <router-link class="routes-links" :to="'/comic'"> Comic </router-link>
+      </div>
+      <div
+        class="routes-links"
+        :class="[router.path === '/comic' ? 'router-link-active' : '']"
+      >
+        Comic
+      </div>
+    </div>
+    <div class="search-component" v-if="router.path === '/'">
+      <SearchBar />
     </div>
   </div>
 </template>
 <script>
 import { defineComponent } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
+import SearchBar from "./SearchBar.vue";
 
 export default defineComponent({
   components: {
-    // SearchBar,
+    SearchBar,
   },
   setup() {
     const router = useRoute();
-
+    console.log(router.path);
     function navigate() {}
     return {
       router,
@@ -51,7 +63,8 @@ export default defineComponent({
 }
 
 .routes {
-  flex-grow: 5;
+  flex-grow: 3;
+  padding: 0 18px 0 12px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -65,7 +78,7 @@ export default defineComponent({
   margin-left: 5%;
 }
 
-.router-link-active::before {
+.routes-links.router-link-active::before {
   content: "";
   display: inline;
   position: absolute;
@@ -76,6 +89,12 @@ export default defineComponent({
   transform: skew(-12deg) translateX(-50%);
   background: red;
   z-index: -1;
+}
+
+.search-component {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
 }
 </style>
 <style scoped>
