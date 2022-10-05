@@ -75,7 +75,7 @@ body {
 }
 
 .hero-list-container {
-  background: white;
+  /* background: white; */
 }
 
 .container {

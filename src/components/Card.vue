@@ -56,6 +56,7 @@ export default defineComponent({
 }
 
 .card-container > img {
+  border-radius: 4px;
   height: 50%;
   width: 100%;
 }

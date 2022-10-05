@@ -15,3 +15,9 @@ export default defineComponent({
   setup() {},
 });
 </script>
+
+<style>
+body {
+  background: #1a1a1a;
+}
+</style>
