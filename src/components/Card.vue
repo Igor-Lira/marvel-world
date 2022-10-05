@@ -43,12 +43,16 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.card-container-wrapper {
+  display: flex;
+  justify-content: center;
+}
 .card-container {
   position: relative;
-  margin-top: 10px;
-  margin-left: 10px;
+  margin-bottom: 30px;
   width: 150px;
-  height: 400px;
+  margin-left: 10px;
+  height: 300px;
   background: #151515;
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2), 0px 3px 4px rgba(0, 0, 0, 0.12),
     0px 2px 4px rgba(0, 0, 0, 0.14);
