@@ -3,13 +3,6 @@
     <div class="card-container" @click="goToHeroPage">
       <img :src="imageURL" alt="" />
       <div class="card-title">{{ heroData.name }}</div>
-      <!-- <div class="card-content">{{ description }}</div> -->
-      <!-- <span class="card-button">
-        <router-link
-          :to="{ path: '/hero', }"
-          >See more</router-link
-        >
-      </span> -->
     </div>
   </div>
 </template>
@@ -75,10 +68,8 @@ export default defineComponent({
   bottom: 50%;
 }
 
-.card-container-wrapper:hover > .card-container {
-  opacity: 90%;
+.card-container:hover {
   background-color: #390003;
-  transition: opacity 300ms;
 }
 
 .card-title {

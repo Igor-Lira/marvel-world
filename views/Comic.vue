@@ -4,8 +4,8 @@
     <img class="comic-image" :src="imageURL" width="300" height="400" />
     <div class="comic-description">{{ description }}</div>
     <div v-if="comicData.data.prices" class="comic-price">
-      <p>{{ printprice }}</p>
-      <p>{{ digitalPrice }}</p>
+      <p class="price">{{ printprice }}</p>
+      <p class="price">{{ digitalPrice }}</p>
     </div>
   </div>
 </template>
@@ -89,6 +89,7 @@ export default {
 * {
   color: white;
 }
+
 .comic-title {
   margin-top: 10px;
   width: 100%;
@@ -110,15 +111,17 @@ export default {
 
 .comic-image {
   display: inline-block;
-  padding: 10px;
+  margin: 10px;
+  border-radius: 8px;
 }
-.comic-description {
-  margin-top: 20px;
-  width: 100%;
-}
+
+.comic-description,
 .comic-price {
   margin-top: 20px;
   width: 100%;
 }
+
+.price {
+  color: red;
+}
 </style>
->

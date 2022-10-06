@@ -1,10 +1,10 @@
 <template>
-  <div v-if="heroData.data">
-    <div class="hero-name">{{ name }}</div>
-    <div class="hero-info">
+  <div v-if="heroData.data" class="container">
+    <div class="hero-card">
+      <div class="hero-name">{{ name }}</div>
       <div class="hero-image">
         <img :src="imageURL" />
-        <div class="buttons">
+        <div class="buttons-mavel-list">
           <button
             :class="[userChoice.value == 'comics' ? 'active' : '']"
             type="button"
@@ -34,54 +34,54 @@
       <div class="hero-description">
         <p>{{ description }}</p>
       </div>
-      <div class="hero-general-content">
-        <div v-if="userChoice.value == 'comics'">
-          <div v-show="comics.length">
-            <div class="comic-title">Comics</div>
-            <ul>
-              <li
-                class="comic-item"
-                v-for="comic in comics"
-                :key="comic.resourceURI"
-              >
-                <router-link
-                  :to="{ path: '/comic', query: { url: comic.resourceURI } }"
-                  >{{ comic.name }}
-                </router-link>
-              </li>
-            </ul>
-          </div>
+    </div>
+    <div class="marvel-lists">
+      <div v-if="userChoice.value == 'comics'">
+        <div v-show="comics.length">
+          <div class="comic-title">Comics</div>
+          <ul>
+            <li
+              class="comic-item"
+              v-for="comic in comics"
+              :key="comic.resourceURI"
+            >
+              <router-link
+                :to="{ path: '/comic', query: { url: comic.resourceURI } }"
+                >{{ comic.name }}
+              </router-link>
+            </li>
+          </ul>
         </div>
-        <div v-else-if="userChoice.value == 'series'">
-          <div v-show="series.length">
-            <div class="serie-title">Series</div>
-            <ul>
-              <li
-                class="serie-item"
-                v-for="serie in series"
-                :key="serie.resourceURI"
-              >
-                {{ serie.name }}
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div v-else-if="userChoice.value == 'stories'">
-          <div v-show="stories.length">
-            <div class="story-title">Stories</div>
-            <ul>
-              <li
-                class="story-item"
-                v-for="story in stories"
-                :key="story.resourceURI"
-              >
-                {{ story.name }}
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div v-else>Chose your content</div>
       </div>
+      <div v-else-if="userChoice.value == 'series'">
+        <div v-show="series.length">
+          <div class="serie-title">Series</div>
+          <ul>
+            <li
+              class="serie-item"
+              v-for="serie in series"
+              :key="serie.resourceURI"
+            >
+              {{ serie.name }}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div v-else-if="userChoice.value == 'stories'">
+        <div v-show="stories.length">
+          <div class="story-title">Stories</div>
+          <ul>
+            <li
+              class="story-item"
+              v-for="story in stories"
+              :key="story.resourceURI"
+            >
+              {{ story.name }}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div v-else>Chose your content</div>
     </div>
   </div>
 </template>
@@ -134,14 +134,20 @@ export default {
   color: white;
 }
 
+/* .hero-name {
+  width: 100%;
+} */
+.container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 @media screen and (max-width: 600px) {
   .hero-image > img {
     width: 55%;
   }
-  .hero-image {
-    width: 100%;
-  }
-  .hero-description {
+  .hero-card {
     width: 100%;
   }
 }
@@ -150,22 +156,12 @@ export default {
     width: 300px;
     height: 300px;
   }
-  .hero-image {
-    width: fit-content;
+  .marvel-lists {
+    padding-left: 20px;
   }
-  .hero-description {
-    width: 50%;
-  }
-}
-
-.hero-info {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
 }
 
 .hero-image > img {
-  /* display: inline; */
   margin: 15px;
   border-radius: 8px;
 }
@@ -200,21 +196,15 @@ export default {
 .hero-description {
   max-width: 600px;
   text-align: center;
-  display: flex;
-  align-items: center;
 }
 
-.hero-general-content {
-  width: 100%;
-}
-
-.buttons {
+.buttons-mavel-list {
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
-.buttons > button {
+.buttons-mavel-list > button {
   margin-left: 5px;
 }
 
@@ -226,7 +216,7 @@ button {
 }
 
 button:hover {
-  opacity: 70%;
+  background-color: #71191e;
 }
 
 button.active {

@@ -1,7 +1,7 @@
 <template>
   <metainfo>
     <template v-slot:title="{ content }">{{
-      content ? `${content} | Profile` : `Profile`
+      content ? `${content}` : `Marvel Universe`
     }}</template>
   </metainfo>
   <div id="app">

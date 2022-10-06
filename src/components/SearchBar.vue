@@ -6,7 +6,7 @@
       type="text"
       name="serachHero"
       v-model="heroNameSearch"
-      placeholder="Search a hero.."
+      placeholder="Search a hero..."
       @keyup.enter="searchInApi(heroNameSearch)"
     />
   </div>
@@ -40,12 +40,8 @@ export default defineComponent({
   background-color: transparent;
   color: white;
   padding-left: 10px;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 28px;
-  color: rgba(255, 255, 255, 0.485);
+  font: 400 16px/1.1 RobotoCondensed Bold, Trebuchet MS, Helvetica, Arial,
+    sans-serif;
 }
 .wrapper {
   position: relative;
