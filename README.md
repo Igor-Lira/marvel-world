@@ -1,20 +1,45 @@
-## marvel-world
+# Marvel Universe - Exploring Marvel API
 
-# Project description
+<img src="https://github.com/Igor-Lira/Igor-Lira/blob/main/public/marvel-banner.png" width="200px" />
 
-Marvel world is a Single Page Application that fetches data from the Marvel public API and intuitively displays its content. The user can search for a hero and discover its history and in which comics they appear. Digging further, the user can access the comic details, such as the synopsis, price, and other heroes appearing in the comic.
+      video demo: https://www.youtube.com/embed/Iiw6rwMKbRM
 
-I used VueJs since it is one of the powerful frameworks to use components to create modern SPA. The most evident component is the card that will handle the hero's information with its name, image, and history.
+## Project description
 
-You can fork to create more features since Marvel's API has a lot of information that may be interesting to add!
+        This website provides users with information about Marvel characters to
+        discover their history and which comics, stories and series they appear
+        in. Digging further, the user can find more about the comics, such as
+        the synopsis, price and which other superheroes fight together.
 
-# About this project 
+## About this project 
 
-This was my first side project. I was motivated to use front-end technologies to build an exciting website. Connecting a website to an API is one of the best ways to start. I decided to use Marvel API because it is free and easy to use. It is also fantastic to discover new heroes, isn't it?
+        This project is a Single Page Application built with VueJs. The
+        front-end routing enables the navigation between the views (List of
+        superheroes, Character Info, and Comic Info) without refreshing the
+        page.
 
-I learned how to connect a front-end with a back-end using a RestFul API. Also, I used components that empower the front-end development workflow since less repetitive code is needed to display a list, for instance. One of my concerns was to create a minimum responsive layout, so I developed using a mobile device layout to check if the accessibility was good enough. 
+        I choose Vue3 because it is one of the most powerful frameworks to use
+        components to create modern SPA. The most evident component is the card
+        that will handle the hero's information (name, image and description).
+        
+        The content is fetched from the Marvel public API. I
+        learned how to make an integration of a client application with an
+        external RestFul API. Also, I explored the documentation to find out
+        which routes would be helpful for my needs. Additionally, I searched for
+        filter queries that go with the requests. For instance, if the user
+        searches for a specific character, the request must be filtered with
+        "name starts with".
+        
+         One of my concerns was to create a responsive layout, so I navigated in
+        a mobile layout to check if accessibility was good enough. I made good
+        use of flexbox and media queries to reach this goal.
+        
+## Tasks
 
-# Project setup
+        Some other features to add in this project: 
+        - Use stories/series API routes.
+
+## Project setup
 
 ```
 npm install
